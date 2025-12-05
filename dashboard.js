@@ -1,3 +1,9 @@
+import { auth } from "./firebase.js";
+import {
+  onAuthStateChanged,
+  signOut,
+} from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
+
 document.addEventListener("DOMContentLoaded", () => {
   const navLinks = document.querySelectorAll(".nav-link");
   const pages = document.querySelectorAll(".page");
@@ -5,6 +11,26 @@ document.addEventListener("DOMContentLoaded", () => {
   const transactionModal = document.getElementById("transactionModal");
   const signoutModal = document.getElementById("signoutModal");
   const signOutTrigger = document.getElementById("signOutTrigger");
+  const userNameEls = document.querySelectorAll("[data-user-name]");
+  const userEmailEls = document.querySelectorAll("[data-user-email]");
+  const profileNameInput = document.querySelector("[data-profile-name]");
+  const profileEmailInput = document.querySelector("[data-profile-email]");
+
+  onAuthStateChanged(auth, (user) => {
+    if (!user) {
+      window.location.href = "login.html";
+      return;
+    }
+
+    const displayName = user.displayName || user.email?.split("@")[0] || "User";
+    const email = user.email || "";
+
+    userNameEls.forEach((el) => (el.textContent = displayName));
+    userEmailEls.forEach((el) => (el.textContent = `Here's your financial overview for this month (${email})`));
+
+    if (profileNameInput) profileNameInput.value = displayName;
+    if (profileEmailInput) profileEmailInput.value = email;
+  });
 
   navLinks.forEach((link) => {
     link.addEventListener("click", () => {
@@ -42,8 +68,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   signOutTrigger?.addEventListener("click", () => openModal(signoutModal));
   const confirmSignoutBtn = document.querySelector("#signoutModal .danger-btn");
-  confirmSignoutBtn?.addEventListener("click", () => {
-    localStorage.removeItem("loggedUser");
+  confirmSignoutBtn?.addEventListener("click", async () => {
+    await signOut(auth);
     window.location.href = "login.html";
   });
 

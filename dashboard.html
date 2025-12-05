@@ -74,8 +74,10 @@
         <div class="page" data-page="dashboard">
           <header class="page-header">
             <div>
-              <p class="eyebrow">Welcome back, clever!</p>
-              <h1>Here's your financial overview for this month</h1>
+              <p class="eyebrow">
+                Welcome back, <span data-user-name>there</span>!
+              </p>
+              <h1 data-user-email>Here's your financial overview for this month</h1>
             </div>
             <button class="primary-btn add-transaction-btn">
               + Add Transaction
@@ -441,11 +443,11 @@
               <h2>Profile Settings</h2>
               <label>
                 Full Name
-                <input type="text" value="clever" />
+                <input type="text" data-profile-name value="Loading..." />
               </label>
               <label>
                 Email Address
-                <input type="email" value="clever@gmail.com" />
+                <input type="email" data-profile-email value="Loading..." />
               </label>
               <button class="ghost-btn">Change Password</button>
             </article>
@@ -565,6 +567,6 @@
       </div>
     </div>
 
-    <script src="dashboard.js" defer></script>
+    <script type="module" src="dashboard.js"></script>
   </body>
 </html>

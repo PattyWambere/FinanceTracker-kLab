@@ -1,61 +1,56 @@
-// localStoragezzzz
-let users = JSON.parse(localStorage.getItem("users")) || [];
+import { auth } from "./firebase.js";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  updateProfile,
+} from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
 
-// Signn
-document.addEventListener("DOMContentLoaded", () => {
-    const signupForm = document.getElementById("signupForm");
-    const loginForm = document.getElementById("loginForm");
+const getValue = (...ids) => {
+  for (const id of ids) {
+    const el = document.getElementById(id);
+    if (el) return el.value.trim();
+  }
+  return "";
+};
 
-    const getValue = (...ids) => {
-        for (const id of ids) {
-            const el = document.getElementById(id);
-            if (el) return el.value.trim();
-        }
-        return "";
-    };
+const showError = (msg) => alert(msg);
 
-    if (signupForm) {
-        signupForm.addEventListener("submit", (e) => {
-            e.preventDefault();
+const handleSignup = async (event) => {
+  event.preventDefault();
+  const name = getValue("signup-name", "name");
+  const email = getValue("signup-email", "email");
+  const password = getValue("signup-password", "password");
 
-            let user = {
-                name: getValue("signup-name", "name"),
-                email: getValue("signup-email", "email"),
-                password: getValue("signup-password", "password")
-            };
-
-            users.push(user);
-            localStorage.setItem("users", JSON.stringify(users));
-
-            alert("Account created! Please login.");
-            window.location.href = "login.html";
-        });
+  try {
+    const { user } = await createUserWithEmailAndPassword(auth, email, password);
+    if (name) {
+      await updateProfile(user, { displayName: name });
     }
+    window.location.href = "dashboard.html";
+  } catch (err) {
+    showError(err.message || "Unable to create account.");
+  }
+};
 
-    if (loginForm) {
-        loginForm.addEventListener("submit", (e) => {
-            e.preventDefault();
+const handleLogin = async (event) => {
+  event.preventDefault();
+  const email = getValue("login-email", "email");
+  const password = getValue("login-password", "password");
 
-            let email = getValue("login-email", "email");
-            let password = getValue("login-password", "password");
+  try {
+    await signInWithEmailAndPassword(auth, email, password);
+    window.location.href = "dashboard.html";
+  } catch (err) {
+    showError(err.message || "Incorrect email or password.");
+  }
+};
 
-            let user = users.find(u => u.email === email && u.password === password);
+const init = () => {
+  const signupForm = document.getElementById("signupForm");
+  const loginForm = document.getElementById("loginForm");
 
-            if (user) {
-                localStorage.setItem("loggedUser", JSON.stringify(user));
-                window.location.href = "dashboard.html";
-            } else {
-                alert("Incorrect email or password!");
-            }
-        });
-    }
-});
+  if (signupForm) signupForm.addEventListener("submit", handleSignup);
+  if (loginForm) loginForm.addEventListener("submit", handleLogin);
+};
 
-// Logout
-const logoutBtn = document.getElementById("logoutBtn");
-if (logoutBtn) {
-    logoutBtn.addEventListener("click", () => {
-        localStorage.removeItem("loggedUser");
-        window.location.href = "index.html";
-    });
-}
+document.addEventListener("DOMContentLoaded", init);

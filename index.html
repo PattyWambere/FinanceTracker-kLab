@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Finance Tracker | Sign In</title>
+    <link rel="stylesheet" href="styles/style.css" />
+  </head>
+  <body>
+    <div class="login-container">
+      <h2>Welcome to Finance Tracker</h2>
+      <a href="login.html" class="login-button">Sign In</a>
+      <a href="signup.html" class="signup-button">Create Account</a>
+    </div>  
+
+
+
+
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyANGyWZodHh4aP52crNumLN292DdEDcric",
+            authDomain: "finance-tracker-app-bfe72.firebaseapp.com",
+            projectId: "finance-tracker-app-bfe72",
+            storageBucket: "finance-tracker-app-bfe72.firebasestorage.app",
+            messagingSenderId: "94088828096",
+            appId: "1:94088828096:web:49aa527e5406ca87374925"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+
+        console.log('log app name:  ${app.name} ${app.options.projectId}');
+    </script>  
+  </body>
+</html>
