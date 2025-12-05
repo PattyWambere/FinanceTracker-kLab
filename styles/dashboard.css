@@ -309,6 +309,11 @@ body {
   border-bottom: none;
 }
 
+.transaction-list .empty {
+  color: var(--muted);
+  justify-content: center;
+}
+
 .transaction-icon {
   width: 48px;
   height: 48px;

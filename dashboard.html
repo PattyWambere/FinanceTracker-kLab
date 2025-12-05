@@ -77,7 +77,8 @@
               <p class="eyebrow">
                 Welcome back, <span data-user-name>there</span>!
               </p>
-              <h1 data-user-email>Here's your financial overview for this month</h1>
+              <h1>Here's your financial overview for this month</h1>
+              <p class="muted" data-user-email>Loading your account...</p>
             </div>
             <button class="primary-btn add-transaction-btn">
               + Add Transaction
@@ -151,58 +152,7 @@
                 + Add Transaction
               </button>
             </div>
-            <ul class="transaction-list">
-              <li>
-                <div class="transaction-icon positive">
-                  <span>↗</span>
-                </div>
-                <div class="transaction-info">
-                  <strong>Monthly Salary</strong>
-                  <span>Salary • Nov 29</span>
-                </div>
-                <span class="amount positive">+$5,000.00</span>
-              </li>
-              <li>
-                <div class="transaction-icon neutral">
-                  <span>☕</span>
-                </div>
-                <div class="transaction-info">
-                  <strong>Coffee Shop</strong>
-                  <span>Food • Nov 30</span>
-                </div>
-                <span class="amount negative">-$4.50</span>
-              </li>
-              <li>
-                <div class="transaction-icon neutral">
-                  <span>🛒</span>
-                </div>
-                <div class="transaction-info">
-                  <strong>Grocery Store</strong>
-                  <span>Food • Dec 1</span>
-                </div>
-                <span class="amount negative">-$89.32</span>
-              </li>
-              <li>
-                <div class="transaction-icon neutral">
-                  <span>🎬</span>
-                </div>
-                <div class="transaction-info">
-                  <strong>Netflix Subscription</strong>
-                  <span>Entertainment • Dec 1</span>
-                </div>
-                <span class="amount negative">-$15.99</span>
-              </li>
-              <li>
-                <div class="transaction-icon positive">
-                  <span>💼</span>
-                </div>
-                <div class="transaction-info">
-                  <strong>Freelance Project</strong>
-                  <span>Freelance • Nov 26</span>
-                </div>
-                <span class="amount positive">+$1,200.00</span>
-              </li>
-            </ul>
+            <ul class="transaction-list" data-transactions="recent"></ul>
           </article>
         </div>
 
@@ -236,68 +186,7 @@
             </label>
           </div>
 
-          <ul class="transaction-list large">
-            <li>
-              <div class="transaction-icon positive">
-                <span>↗</span>
-              </div>
-              <div class="transaction-info">
-                <strong>Monthly Salary</strong>
-                <span>Salary • Nov 29</span>
-              </div>
-              <span class="amount positive">+$5,000.00</span>
-            </li>
-            <li>
-              <div class="transaction-icon neutral">
-                <span>☕</span>
-              </div>
-              <div class="transaction-info">
-                <strong>Coffee Shop</strong>
-                <span>Food • Nov 30</span>
-              </div>
-              <span class="amount negative">-$4.50</span>
-            </li>
-            <li>
-              <div class="transaction-icon neutral">
-                <span>🛒</span>
-              </div>
-              <div class="transaction-info">
-                <strong>Grocery Store</strong>
-                <span>Food • Dec 1</span>
-              </div>
-              <span class="amount negative">-$89.32</span>
-            </li>
-            <li>
-              <div class="transaction-icon neutral">
-                <span>🎬</span>
-              </div>
-              <div class="transaction-info">
-                <strong>Netflix Subscription</strong>
-                <span>Entertainment • Dec 1</span>
-              </div>
-              <span class="amount negative">-$15.99</span>
-            </li>
-            <li>
-              <div class="transaction-icon positive">
-                <span>💼</span>
-              </div>
-              <div class="transaction-info">
-                <strong>Freelance Project</strong>
-                <span>Freelance • Nov 26</span>
-              </div>
-              <span class="amount positive">+$1,200.00</span>
-            </li>
-            <li>
-              <div class="transaction-icon neutral">
-                <span>⛽</span>
-              </div>
-              <div class="transaction-info">
-                <strong>Gas Station</strong>
-                <span>Transportation • Nov 28</span>
-              </div>
-              <span class="amount negative">-$45.00</span>
-            </li>
-          </ul>
+          <ul class="transaction-list large" data-transactions="all"></ul>
         </div>
 
         <div class="page hidden" data-page="analytics">
@@ -511,12 +400,12 @@
             Amount *
             <div class="input-with-prefix">
               <span>$</span>
-              <input type="number" min="0" step="0.01" placeholder="0.00" />
+              <input data-amount type="number" min="0" step="0.01" placeholder="0.00" required />
             </div>
           </label>
           <label>
             Category *
-            <select>
+            <select data-category required>
               <option>Salary</option>
               <option>Food</option>
               <option>Transportation</option>
@@ -525,11 +414,11 @@
           </label>
           <label>
             Date *
-            <input type="date" value="2025-12-01" />
+            <input data-date type="date" />
           </label>
           <label>
             Description *
-            <input type="text" placeholder="e.g., Grocery shopping" />
+            <input data-description type="text" placeholder="e.g., Grocery shopping" required />
           </label>
           <label class="upload-field">
             Receipt (Optional)
